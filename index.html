@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shadow Lab — Social Media Automation Tools</title>
+  <meta name="description" content="Shadow Lab builds automation and analytics tools for social media creators and marketers." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1f1f1f;
+      --accent: #7c3aed;
+      --accent2: #a855f7;
+      --text: #f1f1f1;
+      --muted: #888;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      color: white;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    nav a.nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    nav a.nav-link:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 140px 2rem 100px;
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent)/15;
+      background-color: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.35);
+      color: var(--accent2);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--accent2), #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+    }
+    .cta:hover { opacity: 0.85; }
+
+    /* SERVICES */
+    .section {
+      padding: 80px 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      color: var(--accent2);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(124,58,237,0.4); }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(124,58,237,0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 2rem;
+      text-align: center;
+    }
+
+    .about-inner h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .about-inner p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    /* CONTACT */
+    .contact {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 2rem;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 24px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+    .contact-email:hover { border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-mark">S</div>
+      <span class="logo-text">Shadow Lab</span>
+    </a>
+    <a href="mailto:info@shadowlab.site" class="nav-link">Contact</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Social Media Tools</div>
+    <h1>Automation tools for<br /><span>modern creators</span></h1>
+    <p>Shadow Lab builds software solutions that help social media creators and marketers automate engagement, analyze performance, and grow their audience.</p>
+    <a href="mailto:info@shadowlab.site" class="cta">Get in touch</a>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="section-label">What we build</div>
+    <h2>Our Services</h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Comment Automation</h3>
+        <p>Automatically respond to comments with targeted direct messages based on keyword triggers, helping creators engage audiences at scale.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Analytics & Reporting</h3>
+        <p>Track DM delivery rates, engagement metrics, and audience growth over time with clear, actionable dashboards.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎬</div>
+        <h3>Content Management</h3>
+        <p>Manage and monitor multiple posts from a single dashboard, with per-video rule targeting for automation workflows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="about">
+    <div class="about-inner">
+      <h2>About Shadow Lab</h2>
+      <p>Shadow Lab is a Japan-based software development company specializing in social media automation and creator tools. We develop API-integrated solutions that connect platforms like TikTok with powerful workflow automation.</p>
+      <p>Our tools are built for creators, marketers, and agencies who need reliable, scalable systems to manage audience engagement across social platforms.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <h2>Get in touch</h2>
+    <p>Interested in our tools or have a question? Reach out directly.</p>
+    <a href="mailto:info@shadowlab.site" class="contact-email">
+      ✉️ info@shadowlab.site
+    </a>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Shadow Lab. All rights reserved. &nbsp;·&nbsp; shadowlab.site</p>
+  </footer>
+
+</body>
+</html>
